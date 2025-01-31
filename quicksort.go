@@ -56,6 +56,9 @@ func main() {
 
 		executionTimes[i] = elapsedTime.Seconds() // Time in seconds
 		stepsCount[i] = steps
+
+		// Print execution time for each input size
+		fmt.Printf("%10d | %f\n", size, executionTimes[i])
 	}
 
 	// Create and save the plot
