@@ -8,7 +8,7 @@ from sorting_algorithms import InsertionSort, MergeSort, HeapSort, QuickSort
 outputDir = "plots"
 os.makedirs(outputDir, exist_ok=True)
 
-inputSize = [100, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,10000]  # Input sizes from 100 to 1000, step by 100
+inputSize = [100, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000] 
 
 insertionSortSteps = []
 mergeSortSteps = []
@@ -22,110 +22,45 @@ quickSortTimes = []
 # Run tests for each input size
 for size in inputSize:
     input_array = random.sample(range(1, size + 1), size)
- 
+    
+    print(f"\nSorting array of size {size}:")
+
+    # Insertion Sort
     start_time = time.time()
     _, steps = InsertionSort(input_array.copy())
-    insertionSortTime.append(time.time() - start_time)
+    elapsed_time = time.time() - start_time
+    insertionSortTime.append(elapsed_time)
     insertionSortSteps.append(steps)
+    print(f"Insertion Sort Time: {elapsed_time:.6f} seconds")
 
     # Merge Sort
     start_time = time.time()
     _, steps = MergeSort(input_array.copy())
-    mergeSortTimes.append(time.time() - start_time)
+    elapsed_time = time.time() - start_time
+    mergeSortTimes.append(elapsed_time)
     mergeSortSteps.append(steps)
+    print(f"Merge Sort Time: {elapsed_time:.6f} seconds")
 
     # Heap Sort
     start_time = time.time()
     _, steps = HeapSort(input_array.copy())
-    heapSortTimes.append(time.time() - start_time)
+    elapsed_time = time.time() - start_time
+    heapSortTimes.append(elapsed_time)
     heapSortSteps.append(steps)
+    print(f"Heap Sort Time: {elapsed_time:.6f} seconds")
 
     # Quick Sort
     start_time = time.time()
     _, steps = QuickSort(input_array.copy())
-    quickSortTimes.append(time.time() - start_time)
+    elapsed_time = time.time() - start_time
+    quickSortTimes.append(elapsed_time)
     quickSortSteps.append(steps)
+    print(f"Quick Sort Time: {elapsed_time:.6f} seconds")
 
-# Plot Insertion Sort steps and time
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, insertionSortSteps, label="Insertion Sort - Steps", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Number of Steps")
-plt.title("Insertion Sort: Steps vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/insertion_steps_plot.png")
-plt.close()
+# Save execution time results to a text file
+with open(f"{outputDir}/execution_times.txt", "w") as f:
+    f.write("Input Size, Insertion Sort, Merge Sort, Heap Sort, Quick Sort\n")
+    for i in range(len(inputSize)):
+        f.write(f"{inputSize[i]}, {insertionSortTime[i]:.6f}, {mergeSortTimes[i]:.6f}, {heapSortTimes[i]:.6f}, {quickSortTimes[i]:.6f}\n")
 
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, insertionSortTime, label="Insertion Sort - Time", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Running Time (seconds)")
-plt.title("Insertion Sort: Time vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/insertionSortTime_plot.png")
-plt.close()
-
-# Plot Merge Sort steps and time
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, mergeSortSteps, label="Merge Sort - Steps", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Number of Steps")
-plt.title("Merge Sort: Steps vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/mergeSortSteps_plot.png")
-plt.close()
-
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, mergeSortTimes, label="Merge Sort - Time", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Running Time (seconds)")
-plt.title("Merge Sort: Time vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/mergeSortTimes_plot.png")
-plt.close()
-
-# Plot Heap Sort steps and time
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, heapSortSteps, label="Heap Sort - Steps", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Number of Steps")
-plt.title("Heap Sort: Steps vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/heapSortSteps_plot.png")
-plt.close()
-
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, heapSortTimes, label="Heap Sort - Time", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Running Time (seconds)")
-plt.title("Heap Sort: Time vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/heapSortTimes_plot.png")
-plt.close()
-
-# Plot Quick Sort steps and time
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, quickSortSteps, label="Quick Sort - Steps", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Number of Steps")
-plt.title("Quick Sort: Steps vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/quickSortSteps_plot.png")
-plt.close()
-
-plt.figure(figsize=(10, 6))
-plt.plot(inputSize, quickSortTimes, label="Quick Sort - Time", marker='o')
-plt.xlabel("Input Size (n)")
-plt.ylabel("Running Time (seconds)")
-plt.title("Quick Sort: Time vs Input Size")
-plt.legend()
-plt.grid(True)
-plt.savefig(f"{outputDir}/quickSortTimes_plot.png")
-plt.close()
+print("\nExecution times saved to execution_times.txt")
